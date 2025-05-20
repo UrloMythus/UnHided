@@ -1,4 +1,4 @@
-FROM python:3.10-slim-buster
+nteFROM python:3.10-slim-buster
 
 # Set the working directory in the container to /app
 WORKDIR /app
@@ -7,7 +7,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y git
 
 # Clone the repository
-RUN git clone https://github.com/YourUsername/YourRepoName.git .
+RUN git clone https://github.com/restante/ClaHided .
 
 # Copy the local config.json file to the container
 
