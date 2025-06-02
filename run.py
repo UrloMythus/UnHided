@@ -15,4 +15,4 @@ for route in mediaflow_app.routes:
 # Run the main app
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(main_app, host="0.0.0.0", port=8080)
+    uvicorn.run(main_app, host="0.0.0.0", port=8888)
