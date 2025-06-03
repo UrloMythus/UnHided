@@ -1,26 +1,23 @@
 from fastapi import FastAPI
-from mediaflow_proxy.main import app as mediaflow_app  # Import mediaflow app
-import httpx
-import re
-import string
+from mediaflow_proxy.main import app as mediaflow_app   # Import the built‑in proxy app
 import os
 
-# Initialize the main FastAPI application
+# 1) Create a new FastAPI instance that will “wrap” the proxy
 main_app = FastAPI()
 
-# Add all routes from mediaflow_app except "/", "/status" to avoid conflicts
-for route in mediaflow_app.routes:
-    if route.path not in ["/status"]:
-        main_app.router.routes.append(route)
-
-# Add /status route for API liveness check
+# 2) Register /status first, so it isn’t shadowed by the proxy’s “static at /” mount
 @main_app.get("/status")
 def status(apiPassword: str):
     if apiPassword == os.getenv("API_PASSWORD"):
         return {"status": "ok"}
     return {"status": "unauthorized"}
 
-# Run the main app
+# 3) Now copy every route from mediaflow_app EXCEPT the “/” static‑files mount
+for route in mediaflow_app.routes:
+    if route.path != "/":    
+        main_app.router.routes.append(route)
+
+# 4) Run with uvicorn when you do “python run.py” locally
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(main_app, host="0.0.0.0", port=7860)
