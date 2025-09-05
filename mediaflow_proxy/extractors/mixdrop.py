@@ -14,9 +14,8 @@ class MixdropExtractor(BaseExtractor):
 
         headers = {"accept-language": "en-US,en;q=0.5"}
         pattern = r'MDCore.wurl ?= ?"(.*?)"'
+        
         final_url = f"https:{await eval_solver(self, url, headers, pattern)}"
-
-
 
         self.base_headers["referer"] = url
         return {
