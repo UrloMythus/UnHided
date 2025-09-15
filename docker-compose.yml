@@ -1,0 +1,10 @@
+services:  
+  mfp:
+    build: https://github.com/mhdzumair/mediaflow-proxy.git#main
+    container_name: mfp
+    restart: unless-stopped
+    ports:
+      - '8888:8888'
+    environment:
+      API_PASSWORD: mfp
+      FORWARDED_ALLOW_IPS: "*"
