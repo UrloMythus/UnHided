@@ -25,6 +25,9 @@ class GenerateUrlRequest(BaseModel):
     )
     ip: Optional[IPvAnyAddress] = Field(None, description="The IP address to restrict the URL to.")
     filename: Optional[str] = Field(None, description="Filename to be preserved for media players like Infuse.")
+    base64_encode_destination: Optional[bool] = Field(
+        False, description="Whether to encode the destination URL in base64 format before processing."
+    )
 
 
 class MultiUrlRequestItem(BaseModel):
@@ -93,7 +96,7 @@ class MPDSegmentParams(GenericParams):
 
 class ExtractorURLParams(GenericParams):
     host: Literal[
-        "Doodstream", "Mixdrop", "Uqload", "Streamtape", "Supervideo", "VixCloud", "Okru", "Maxstream", "LiveTV", "DLHD", "Fastream"
+        "Doodstream", "FileLions", "Mixdrop", "Uqload", "Streamtape", "Supervideo", "VixCloud", "Okru", "Maxstream", "LiveTV", "DLHD", "Fastream"
     ] = Field(..., description="The host to extract the URL from.")
     destination: str = Field(..., description="The URL of the stream.", alias="d")
     redirect_stream: bool = Field(False, description="Whether to redirect to the stream endpoint automatically.")
