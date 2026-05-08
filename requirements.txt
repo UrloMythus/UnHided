@@ -22,3 +22,8 @@ anyio
 telethon
 av
 aiohttp
+# Optional: Maxstream / uprot.net captcha bypass (lazily imported by
+# extractors/maxstream.py — safe to remove if not needed).
+Pillow
+pytesseract
+ddddocr
